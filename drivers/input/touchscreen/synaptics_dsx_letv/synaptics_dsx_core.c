@@ -4732,15 +4732,22 @@ static int synaptics_rmi4_fb_notifier_cb(struct notifier_block *self,
 			fb_notifier);
 
 	if (evdata && evdata->data && rmi4_data) {
+
 		if (event == FB_EVENT_BLANK) {
 			transition = evdata->data;
 			if (*transition == FB_BLANK_POWERDOWN) {
 				if(flush_work(&rmi4_data->fb_notify_work))
 					pr_warn("%s: waited resume work finished!\n",__func__);
-				synaptics_rmi4_suspend(&rmi4_data->pdev->dev);
 				rmi4_data->fb_ready = false;
-			} else if (*transition == FB_BLANK_UNBLANK) {
-				schedule_work(&rmi4_data->fb_notify_work);
+				synaptics_rmi4_suspend(&rmi4_data->pdev->dev);
+			} else if (*transition == FB_BLANK_UNBLANK || 
+                       *transition == FB_BLANK_NORMAL /*|| 
+                       *transition == FB_BLANK_VSYNC_SUSPEND || 
+                       *transition == FB_BLANK_HSYNC_SUSPEND*/ ) {
+				if(flush_work(&rmi4_data->fb_notify_work))
+					pr_warn("%s: waited resume work finished!\n",__func__);
+                if( !rmi4_data->fb_ready )
+    				schedule_work(&rmi4_data->fb_notify_work);
 			}
 		}
 	}
