@@ -657,6 +657,10 @@
 };
 
 &soc {
+	qcom,captouch {
+		compatible = "qcom,captouch";
+	};
+
 	i2c@75ba000 {
 		synaptics@20 {
 			compatible = "synaptics,dsx";
@@ -673,6 +677,7 @@
 			synaptics,reset-gpio = <&tlmm 89 0x00>;
 			synaptics,irq-gpio = <&tlmm 125 0x2008>;
 			synaptics,disable-gpios;
+			synaptics,captouch-use;
 			synaptics,fw-name = "PR1702898-s3528t_00350002.img";
 			/* Underlying clocks used by secure touch */
 			clock-names = "iface_clk", "core_clk";
