@@ -8,6 +8,11 @@
 # conmakehash:	 Create arrays for initializing the kernel console tables
 # docproc:       Used in Documentation/DocBook
 
+# Disable Wenum-conversion
+ifeq ($(cc-name),clang)
+EXTRA_CFLAGS += $(call cc-disable-warning, enum-conversion)
+endif
+
 HOST_EXTRACFLAGS += -I$(srctree)/tools/include
 
 hostprogs-$(CONFIG_KALLSYMS)     += kallsyms

@@ -5,6 +5,11 @@
 # Rewritten to use lists instead of if-statements.
 #
 
+# Disable Wstrict-prototypes
+ifeq ($(cc-name),clang)
+EXTRA_CFLAGS += $(call cc-disable-warning, strict-prototypes)
+endif
+
 obj-y				+= irqchip/
 obj-y				+= bus/
 

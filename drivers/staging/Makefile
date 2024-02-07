@@ -3,6 +3,11 @@
 # fix for build system bug...
 obj-$(CONFIG_STAGING)		+= staging.o
 
+# Disable Wstrict-prototypes
+ifeq ($(cc-name),clang)
+EXTRA_CFLAGS += $(call cc-disable-warning, strict-prototypes)
+endif
+
 obj-y				+= media/
 obj-$(CONFIG_SLICOSS)		+= slicoss/
 obj-$(CONFIG_PRISM2_USB)	+= wlan-ng/

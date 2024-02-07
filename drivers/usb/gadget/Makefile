@@ -1,6 +1,12 @@
 #
 # USB peripheral controller drivers
 #
+
+# Disable Wenum-conversion
+ifeq ($(cc-name),clang)
+EXTRA_CFLAGS += $(call cc-disable-warning, single-bit-bitfield-constant-conversion)
+endif
+
 subdir-ccflags-$(CONFIG_USB_GADGET_DEBUG)	:= -DDEBUG
 subdir-ccflags-$(CONFIG_USB_GADGET_VERBOSE)	+= -DVERBOSE_DEBUG
 ccflags-y				+= -I$(srctree)/drivers/usb/gadget/udc -I$(srctree)/drivers/usb/gadget/function
