@@ -65,9 +65,9 @@
 		qcom,mdss-dsi-on-command = [05 01 00 00 0a 00 01 00
 					/* Soft reset, wait 10ms */
 					23 01 00 00 00 00 02 b0 00
-                    /* MCAP */
+                                        /* MCAP */
 					23 01 00 00 00 00 02 d6 01
-                    /* Remove NVM */
+                                        /* Remove NVM */
 					23 01 00 00 00 00 02 b3 00
 					/* C1 SET */
 					05 01 00 00 20 00 01 29
